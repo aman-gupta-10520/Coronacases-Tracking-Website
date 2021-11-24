@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Covid19</title>
+        <link rel = "icon" href = 
+"icon.png" 
+        type = "image/x-icon">
+
+  <link href="style.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Aman Gupta">
+  </head>
+  <body>
+    <div class="mob" id="mob">
+    <a href="#" onclick="mobile()">Menu</a></div>
+    <div id="nav">
+    <h5 style="font-size:1vw;font-family:arial;">Covid19 <span id="st" style="color:#41a7ff;font-size:0.8vw;font-family:Arial;">Countrywise </span><br><span style="color:#41a7ff;font-size: 0.8vw;font-family:arial;"> Data</span></h5>
+    <table class="table-responsive">
+    <tr>
+    <td><a href="#" onclick="change(0)" title="Home page" id="home"><i class="butt las la-home"></i></a></td></tr>
+    <tr><td><a href="#" id="phone" title="States" onclick="change(1)"><i class="butt las la-bars"></i></td></tr>
+    <tr><td><a href="#" id="phone" title="Resources" onclick="change(2)"><i class="butt las la-phone"></i></td></tr>
+    <tr><td><a href="#" id="phone" title="About" onclick="change(3)"><i class="butt las la-question-circle"></i></td></tr>
+    <tr><td><a href="#" id="mode" onclick="modes()"><i class="las la-moon" title="Dark-Mode"></i></td></tr>
+
+    </table>
+  </div>
+<div class="menu" id="menu">
+<a href="#" onclick="change(0)" class="but">    Home</a><br><br><br>
+<a href="#" onclick="change(1)" class="but">States Data</a><br><br><br>
+<a href="#" onclick="change(2)" class="but">Resources</a><br><br><br>
+<a href="#" onclick="change(3)" class="but">About</a><br><br><br>
+<a href="#" onclick="modes()" class="but1">Change Mode</a><br><br><br>
+
+</div>
+
+
+
+  <div id="countr" class="sec countr">
+    <div class="head">Covid Cases Dashboard <span id="country"></span> <img src="" id="flag"></div>
+
+  <i class="fa fa-search" id="s" style="margin-left:.8vw;position:absolute;z-index:1;color:#8c918d;"></i>
+  <input id="txt" type="text" placeholder="search for country">
+  <button class="srch" id="srch" onclick="searh()">Search</button>
+  <div class="container back">
+  <div class="wrapper back">
+  <div id="confirm" class="df">
+  <i class="las la-th-list" style='font-size:4vw;'></i>
+  <h3>Confirmed Cases</h3><span id="sconfirm"></span>
+</div>
+
+  <div id="deaths" class="df">
+  <i class="las la-times" style='font-size:4vw;'></i>
+  <h3>Total Deaths</h3><span id="sdeaths"></span>
+</div>
+
+  <div id="active" class="df">
+  <i class="las la-tachometer-alt" style='font-size:4vw;'></i>
+  <h3>Active Cases</h3><span id="sactive"></span>
+</div>
+
+  <div id="critical" class="df">
+  <i class="las la-times-circle" style='font-size:4vw;'></i>
+  <h3>Critical Cases</h3><span id="scritical"></span>
+</div>
+
+  <div id="recover" class="df">
+  <i class="las la-check-square" style='font-size:4vw;'></i>
+  <h3>Total Recovery</h3><span id="srecover"></span>
+</div>
+
+  <div id="test" class="df">
+  <i class="las la-eye" style='font-size:4vw;'></i>
+  <h3>Test Done</h3><span id="stest"></span>
+</div>
+
+</div>
+</div>
+<h3 class="markk" style="margin-left:-15vw;text-align: center;margin-top:-4vw;font-family:arial;color:#41a7ff;font-size:1vw;">Click on marker to see.<br>Black colors of marker shows country with less cases(&lt255000) and red for high cases(&gt25000).</h3>
+<div id='map'></div>
+<div class="foot">
+<div class="footer">
+<h3 style="color:#41a7ff";>Covid19</h3>
+<h5 style="color:grey;margin-top:-0.5vw;">We stand with everyone fighting on the frontlines</h5></div>
+<div class="awesome"><a href="https://www.facebook.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-facebook"></i></a>
+<a href="https://twitter.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-twitter"></i></a>
+<a href="https://t.me/covid19indiaorg" target="_blank"><i class="lab la-lg la-telegram"></i></a>
+<a href="https://www.instagram.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-instagram"></i></a>
+<a href="https://api.covid19india.org/" target="_blank"><i class="fa fa-database"></i></a>
+<a href="mailto:https://twitter.com/covid19indiaorg" target="_blank"><i class="las la-lg la-envelope"></i></a>
+<h5 style="color:grey;margin-top:0.5vw;font-family: arial;">This website is made by<a href="https://amangupta-10520.web.app/" style="font-family:arial;text-decoration: underline;" id="sh" target="_blank">Aman Gupta</a>  and the covid cases data is taken from<a href="https://corona.lmao.ninja/v2/countries/" id="sh" style="font-family:arial;text-decoration: underline;" target="_blank">API</a></h5>
+
+</div>
+
+</div>
+
+
+</div>
+<!--<div class="footer">
+<h3 style="color:#41a7ff";>Covid19</h3>
+<h5 style="color:grey;margin-top:-0.5vw;">We stand with everyone fighting on the frontlines</h5></div>-->
+<div class="sec states" id="states">
+  <h1 style="color:#41a7ff;font-family:arial;">Indian States Cases</h1>
+  <i class="fa fa-search" id="s" style="margin-left:10.5vw;position:absolute;z-index:1;color:#8c918d;"></i>
+  <input id="tx" type="text" placeholder="search for state" style="margin-left:10vw;">
+  <button class="srch" id="srcc" onclick="statesearch()">Search</button>
+<table id="x">
+<tr>
+<th>S.NO.</th>
+<th>State Name</th>
+<th>Confirm Indian Cases</th>
+<th>Confirm Foreign Cases</th>
+<th>Recovered Cases</th>
+<th>Total Deaths</th>
+</tr>
+</table>
+<div class="footer">
+<h3 style="color:#41a7ff;margin-left:6vw;">Covid19</h3>
+<h5 style="color:grey;margin-top:-0.5vw;margin-left:6vw;">We stand with everyone fighting on the frontlines</h5>
+</div>
+<div class="awesom"><a href="https://www.facebook.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-facebook"></i></a>
+<a href="https://twitter.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-twitter"></i></a>
+<a href="https://t.me/covid19indiaorg" target="_blank"><i class="lab la-lg la-telegram"></i></a>
+<a href="https://www.instagram.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-instagram"></i></a>
+<a href="https://api.covid19india.org/" target="_blank"><i class="fa fa-database"></i></a>
+<a href="mailto:https://twitter.com/covid19indiaorg" target="_blank"><i class="las la-lg la-envelope"></i></a>
+<h5 style="color:grey;margin-top:0.5vw;font-family: arial;margin-left:-6vw;">This website is made by<a href="https://amangupta-10520.web.app/" style="font-family:arial;text-decoration: underline;" id="sh" target="_blank">Aman Gupta</a> and the covid cases data is taken from<a href="https://corona.lmao.ninja/v2/countries/India" id="sh" style="font-family:arial;text-decoration: underline;" target="_blank">API</a></h5>
+
+</div>
+</div>
+<div id="resources" class="sec resources">
+<h1 class="ree">Resources</h1>
+<div class="banner"><p>The objective of this page is to help people gain access to vital resources by sharing information only. However, we request the beneficiaries to use their discretion and verify the leads on their own before taking any action. If you find inaccurate information or any lead engaging in illegal practices, kindly inform us. We will take it down as soon as possible. We will not be responsible for the actions you take using the information on this page. We are just mediating information and are no way responsible for what is being shared. Please avoid sharing and contacting black market resources. We strongly encourage to AVOID black market.</p>
+</div>
+<div class="box" id="box">
+  <a href="https://life.coronasafe.network/" target="_blank"><div class="text1">Covidfyi - Pan India</div><div class="link">https://life.coronasafe.network/</div></a>
+  <a href="https://www.factchecker.in/fact-check/factchecker-verified-covid-19-helplines-remdesivir-hospital-beds-oxygen-743175" target="_blank"><div class="text1">Factchecker - Pan India</div><div class="link">https://www.factchecker.in/fact-check/factchecker-verified-covid-19-helplines-remdesivir-hospital-beds-oxygen-743175</div></a>
+  <a href="www.covidfacts.in" target="_blank"><div class="text1">Independent aggregator - Pan India</div><div class="link">www.covidfacts.in</div></a>
+  <a href="https://covidbihar.com/" target="_blank"><div class="text1">Independent aggregator - Bihar</div><div class="link">https://covidbihar.com/</div></a>
+  <a href="https://covidpune.com/" target="_blank"><div class="text1">Independent aggregator - Pune</div><div class="link">https://covidpune.com/</div></a>
+  <a href="https://covid-sos-4034.glideapp.io/" target="_blank"><div class="text1">Independent aggregator - Punjab</div><div class="link">https://covid-sos-4034.glideapp.io/</div></a>
+  <a href="https://docs.google.com/document/d/1DBjlE6c5ui59-nQuxvAv9kitJwMvyyDZZcKkSTY17D8/edit?usp=drivesdk" target="_blank"><div class="text1">Independent aggregator - Surat</div><div class="link">https://docs.google.com/document/d/1DBjlE6c5ui59-nQuxvAv9kitJwMvyyDZZcKkSTY17D8/edit?usp=drivesdk</div></a>
+  <a href="https://linktr.ee/b4ls1r210" target="_blank"><div class="text1">Independent aggregator - West Bengal</div><div class="link">https://linktr.ee/b4ls1r210</div></a>
+  <a href="https://covidmp.com" target="_blank"><div class="text1">Independent aggregator - Madhya Pradesh</div><div class="link">https://covidmp.com</div></a>
+  <a href="https://covidgandhinagar.com" target="_blank"><div class="text1">Independent aggregator - Gandhinagar</div><div class="link">https://covidgandhinagar.com</div></a>
+  <a href="https://theofdn.org/covidodisha/" target="_blank"><div class="text1">Independent aggregator - Odisha</div><div class="link">https://theofdn.org/covidodisha/</div></a>
+  <a href="https://covidnashik.com" target="_blank"><div class="text1">Independent aggregator - Nashik</div><div class="link">https://covidnashik.com</div></a>
+  <a href="https://covidaps.com" target="_blank"><div class="text1">Independent aggregator - Andhra Pradesh</div><div class="link">https://covidaps.com</div></a>
+
+  <a href="https://www.amdfightscovid.com//" target="_blank"><div class="text1">Independent aggregator - Ahemedabad</div><div class="link">https://www.amdfightscovid.com/</div></a>
+  <a href="https://oxygenblr.in/" target="_blank"><div class="text1">Independent aggregator - Bangalor</div><div class="link">https://oxygenblr.in/</div></a>
+  <a href="https://docs.google.com/spreadsheets/d/1fHiBtzxBC_3Q7I5SXr_GpNA4ivT73w4W4hjK6IkGDBY/edit#gid=2074968679" target="_blank"><div class="text1">Independent aggregator - Gujarat</div><div class="link">https://docs.google.com/spreadsheets/d/1fHiBtzxBC_3Q7I5SXr_GpNA4ivT73w4W4hjK6IkGDBY/edit#gid=2074968679</div></a>
+  <a href="https://docs.google.com/spreadsheets/d/1roxOi2_Uw4YBzLd5s8vC8cp6lbuM9016tWeWTcx2q5Y/edit#gid=0" target="_blank"><div class="text1">Independent aggregator - Lucknow</div><div class="link">https://docs.google.com/spreadsheets/d/1roxOi2_Uw4YBzLd5s8vC8cp6lbuM9016tWeWTcx2q5Y/edit#gid=0</div></a>
+  <a href="https://linktr.ee/covid_directory_mumbai" target="_blank"><div class="text1">Independent aggregator - Mumabi</div><div class="link">https://linktr.ee/covid_directory_mumbai</div></a>
+  <a href="https://coronabeds.jantasamvad.org/" target="_blank"><div class="text1">Delhi Government</div><div class="link">https://coronabeds.jantasamvad.org/</div></a>
+  <a href="https://covidggn.com/public/pages/gurugram-hospitals" target="_blank"><div class="text1">Gurugram Government</div><div class="link">https://covidggn.com/public/pages/gurugram-hospitals</div></a>
+  <a href="https://docs.google.com/document/d/16WeMKah7RXoB1gnqa9YXVTuWM4TR6hY9Qys48Pf8mCc/edit?usp=drivesdk" target="_blank"><div class="text1">Independent aggregator - Pan India</div><div class="link">https://docs.google.com/document/d/16WeMKah7RXoB1gnqa9YXVTuWM4TR6hY9Qys48Pf8mCc/edit?usp=drivesdk</div></a>
+
+  <a href="http://nsscdcl.org/covidbeds/AvailableHospitals.jsp" target="_blank"><div class="text1">Nagpur Government</div><div class="link">http://nsscdcl.org/covidbeds/AvailableHospitals.jsp</div></a>
+
+  <a href="https://divcommpunecovid.com/ccsbeddashboard/hsr" target="_blank"><div class="text1">Pune Government</div><div class="link">https://divcommpunecovid.com/ccsbeddashboard/hsr</div></a>
+  <a href="https://covidinfo.rajasthan.gov.in/COVID19HOSPITALBEDSSTATUSSTATE.aspx" target="_blank"><div class="text1">Rajasthan Government</div><div class="link">https://covidinfo.rajasthan.gov.in/COVID19HOSPITALBEDSSTATUSSTATE.aspx</div></a>
+  <a href="https://inforanchi.in/" target="_blank"><div class="text1">Ranchi Government</div><div class="link">https://inforanchi.in/</div></a>
+  <a href="https://stopcorona.tn.gov.in/beds.php" target="_blank"><div class="text1">TamilNadu Government</div><div class="link">https://stopcorona.tn.gov.in/beds.php</div></a>
+  <a href="http://164.100.112.24/SpringMVC/Hospital_Beds_Statistic_Bulletin_citizen.htm" target="_blank"><div class="text1">Telangana Government</div><div class="link">http://164.100.112.24/SpringMVC/Hospital_Beds_Statistic_Bulletin_citizen.htm</div></a>
+  <a href="https://covidthane.org/availabiltyOfHospitalBeds.html" target="_blank"><div class="text1">Thane Government</div><div class="link">https://covidthane.org/availabiltyOfHospitalBeds.html</div></a>
+  <a href="https://covid19.uk.gov.in/bedssummary.aspx" target="_blank"><div class="text1">Uttarakhand Government</div><div class="link">https://covid19.uk.gov.in/bedssummary.aspx</div></a>
+
+</div>
+<div class="footer">
+<h3 style="color:#41a7ff";>Covid19</h3>
+<h5 style="color:grey;margin-top:-0.5vw;">We stand with everyone fighting on the frontlines</h5>
+</div>
+<div class="awesome"><a href="https://www.facebook.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-facebook"></i></a>
+<a href="https://twitter.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-twitter"></i></a>
+<a href="https://t.me/covid19indiaorg" target="_blank"><i class="lab la-lg la-telegram"></i></a>
+<a href="https://www.instagram.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-instagram"></i></a>
+<a href="https://api.covid19india.org/" target="_blank"><i class="fa fa-database"></i></a>
+<a href="mailto:https://twitter.com/covid19indiaorg" target="_blank"><i class="las la-lg la-envelope"></i></a>
+<h5 style="color:grey;margin-top:0.5vw;font-family: arial;">This website is made by<a href="https://amangupta-10520.web.app/" style="font-family:arial;text-decoration: underline;" id="sh" target="_blank">Aman Gupta</a> and the reference is taken from<a href="https://www.covid19india.org/" id="sh" style="font-family:arial;text-decoration: underline;" target="_blank">here</a></h5>
+</div>
+</div>
+<div class="sec about">
+  <h1 class="hh1">About</h1>
+<div class="ab">
+  <div clss="check">
+  <a href="https://www.aimsindia.com/covid/" class="self" target="_blank"><h1>Covid-19 Self Checker:</h1><p>Assess your symptoms on CDC’s coronavirus self-checker tool and find out if you’re a candidate for a COVID-19 test.</p></a></div>
+  <h1>Overview</h1>
+
+  <p>Coronaviruses are a family of viruses that can cause illnesses such as the common cold, severe acute respiratory syndrome (SARS) and Middle East respiratory syndrome (MERS). In 2019, a new coronavirus was identified as the cause of a disease outbreak that originated in China.
+<br><br>The virus is now known as the severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). The disease it causes is called coronavirus disease 2019 (COVID-19). In March 2020, the World Health Organization (WHO) declared the COVID-19 outbreak a pandemic.
+<br><br>Public health groups, including the U.S. Centers for Disease Control and Prevention (CDC) and WHO, are monitoring the pandemic and posting updates on their websites. These groups have also issued recommendations for preventing and treating the illness.
+</p>
+<h1>Symptoms</h1>
+<p>Signs and symptoms of coronavirus disease 2019 (COVID-19) may appear two to 14 days after exposure. This time after exposure and before having symptoms is called the incubation period. Common signs and symptoms can include:
+</p>
+<ul>
+<li>Fever</li>
+<li>Cough</li>
+<li>Tiredness</li>
+</ul>
+<p>Early symptoms of COVID-19 may include a loss of taste or smell.<br>
+Other symptoms can include:
+</p>
+<ul>
+<li>Shortness of breath or difficulty breathing</li>
+<li>Muscle aches</li>
+<li>Chills</li>
+<li>Sore throat</li>
+<li>Runny nose</li>
+<li>Headache</li>
+<li>Chest pain</li>
+<li>Pink eye (conjunctivitis)</li>
+<li>Nausea</li>
+<li>Vomiting</li>
+<li>Diarrhea</li>
+<li>Rash</li>
+</ul>
+  <h1>Causes</h1>
+  <p>Infection with the new coronavirus (severe acute respiratory syndrome coronavirus 2, or SARS-CoV-2) causes coronavirus disease 2019 (COVID-19).<br><br>
+The virus that causes COVID-19 spreads easily among people, and more continues to be discovered over time about how it spreads. Data has shown that it spreads mainly from person to person among those in close contact (within about 6 feet, or 2 meters). The virus spreads by respiratory droplets released when someone with the virus coughs,
+ sneezes, breathes, sings or talks. These droplets can be inhaled or land in the mouth, nose or eyes of a person nearby.<br><br>
+
+In some situations, the COVID-19 virus can spread by a person being exposed to small droplets or aerosols that stay in the air for several minutes or hours — called airborne transmission. It's not yet known how common it is for the virus to spread this way.
+<br><br>
+It can also spread if a person touches a surface or object with the virus on it and then touches his or her mouth, nose or eyes, but the risk is low.
+<br><br>
+Some reinfections of the virus that causes COVID-19 have happened, but these have been uncommon.</p>
+<h1>Prevention</h1>
+<p>The U.S. Food and Drug Administration (FDA) has given emergency use authorization to some COVID-19 vaccines in the U.S. A vaccine might prevent you from getting COVID-19 or prevent you from becoming seriously ill from COVID-19 if you get the COVID-19 virus.
+<br><br>
+You can take additional steps to reduce your risk of infection. WHO and CDC recommend following these precautions for avoiding exposure to the virus that causes COVID-19:
+</p><ul>
+<li>Avoid close contact (within about 6 feet, or 2 meters) with anyone who is sick or has symptoms.</li>
+<li>Keep distance between yourself and others (within about 6 feet, or 2 meters). This is especially important if you have a higher risk of serious illness. Keep in mind some people may have COVID-19 and spread it to others, even if they don't have symptoms or don't know they have COVID-19.</li>
+<li>Avoid crowds and indoor places that have poor ventilation.</li>
+<li>Avoid touching your eyes, nose and mouth.</li>
+<li>Wash your hands often with soap and water for at least 20 seconds, or use an alcohol-based hand sanitizer that contains at least 60% alcohol.
+</li>
+<li>Wear a face mask in indoor public spaces and outdoors where there is a high risk of COVID-19 transmission, such as at a crowded event. Further mask guidance differs depending on whether you are fully vaccinated or unvaccinated. Surgical masks may be used if available. N95 respirators should be reserved for health care providers.</li>
+<li>Cover your mouth and nose with your elbow or a tissue when you cough or sneeze. Throw away the used tissue. Wash your hands right away.</li>
+<li>Avoid sharing dishes, glasses, towels, bedding and other household items if you're sick.</li>
+<li>Clean and disinfect high-touch surfaces, such as doorknobs, light switches, electronics and counters, daily.</li>
+<li>Stay home from work, school and public areas if you're sick, unless you're going to get medical care. Avoid public transportation, taxis and ride-sharing if you're sick.</li>
+
+</ul>
+<p>If you have a chronic medical condition and may have a higher risk of serious illness, check with your doctor about other ways to protect yourself.</p>
+</div>
+<div class="footer">
+<h3 style="color:#41a7ff;">Covid19</h3>
+<h5 style="color:grey;margin-top:-0.5vw;">We stand with everyone fighting on the frontlines</h5>
+</div>
+<div class="awesome"><a href="https://www.facebook.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-facebook"></i></a>
+<a href="https://twitter.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-twitter"></i></a>
+<a href="https://t.me/covid19indiaorg" target="_blank"><i class="lab la-lg la-telegram"></i></a>
+<a href="https://www.instagram.com/covid19indiaorg" target="_blank"><i class="lab la-lg la-instagram"></i></a>
+<a href="https://api.covid19india.org/" target="_blank"><i class="fa fa-database"></i></a>
+<a href="mailto:https://twitter.com/covid19indiaorg" target="_blank"><i class="las la-lg la-envelope"></i></a>
+
+</div></div>
+  <script src="script.js">
+  </script>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+
+<!--https://docs.mapbox.com/help/tutorials/custom-markers-gl-js/
+mapbox popup marker-->
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZ3VwdGE1IiwiYSI6ImNrb2t6anJkdDF0c2Iyd3MzMzlrZWZmZHAifQ.pFbA9yqyVY8EWrmkT65omg';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v10',
+    zoom:2.5,
+    center:[80,40]
+  });
+</script>
+
+  </body>
+  </html>
